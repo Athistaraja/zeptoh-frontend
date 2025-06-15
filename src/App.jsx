@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FormField from "./FormField";
 import { decryptField } from "./components/decryptor";
+import { URL } from "./components/url";
 
 function App() {
   const [fields, setFields] = useState([]);
@@ -9,7 +10,7 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/form")
+    fetch(`${URL}/api/form`)
       .then((res) => res.json())
       .then((data) => {
         const decrypted = data
@@ -28,7 +29,7 @@ function App() {
     if (currentIndex + 1 < fields.length) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      fetch("http://localhost:3001/api/submit", {
+      fetch(`${URL}/api/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
